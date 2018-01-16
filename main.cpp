@@ -34,6 +34,7 @@
 #include "datalist.hpp"
 
 #include "mergesort.hpp"
+#include "radixsort.hpp"
 
 unsigned int seed = 123456789;
 unsigned long length = (1024 * 1024);
@@ -120,6 +121,9 @@ int main(int argc, char** argv) {
 
   Run(unsorted, MergeSort, "MergeSort");
   Run(sorted, MergeSort, "Re-run of MergeSort");
+
+  RunAs(unsorted, RadixSort, "RadixSort (forward_list)", std::forward_list<etype>);
+  RunAs(unsorted, RadixSort, "RadixSort (data_list)", data_list<etype>);
 
   return 0;
 }
