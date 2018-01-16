@@ -33,6 +33,8 @@
 #include "data.hpp"
 #include "datalist.hpp"
 
+#include "mergesort.hpp"
+
 unsigned int seed = 123456789;
 unsigned long length = (1024 * 1024);
 
@@ -115,6 +117,9 @@ int main(int argc, char** argv) {
 
   Run(unsorted, heap_sort, "HeapSort");
   Run(sorted, heap_sort, "Re-run of HeapSort");
+
+  Run(unsorted, MergeSort, "MergeSort");
+  Run(sorted, MergeSort, "Re-run of MergeSort");
 
   return 0;
 }
