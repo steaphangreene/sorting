@@ -35,6 +35,7 @@
 
 #include "mergesort.hpp"
 #include "radixsort.hpp"
+#include "splitsort.hpp"
 
 unsigned int seed = 123456789;
 unsigned long length = (1024 * 1024);
@@ -124,6 +125,10 @@ int main(int argc, char** argv) {
 
   RunAs(unsorted, RadixSort, "RadixSort (forward_list)", std::forward_list<etype>);
   RunAs(unsorted, RadixSort, "RadixSort (data_list)", data_list<etype>);
+
+  Run(unsorted, DualSort, "DualSort");
+  Run(unsorted, QuadSort, "QuadSort");
+  Run(unsorted, OctoSort, "OctoSort");
 
   return 0;
 }
