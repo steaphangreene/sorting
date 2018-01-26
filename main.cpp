@@ -24,12 +24,14 @@
 #include <clocale>
 #include <cstdio>
 #include <cstdlib>
+#include <forward_list>
 #include <random>
 #include <vector>
 
 #include <getopt.h>
 
 #include "data.hpp"
+#include "datalist.hpp"
 
 unsigned int seed = 123456789;
 unsigned long length = (1024 * 1024);
