@@ -24,6 +24,8 @@
 #include <type_traits>
 #include <utility>
 
+#include "color.hpp"
+
 template <typename T>
 class Data {
  public:
@@ -205,13 +207,13 @@ typename Data<T>::Stats Data<T>::global_stats = {
 template <typename T, typename V>
 void Report(const char* mes, T& data, V took) {
   auto& stats = T::value_type::GetStats();
-  printf("Took %'15ldns for: %s\n", took.count(), mes);
-  printf("  %'15lu Comp ", stats.comparisons);
-  printf("  %'15lu Cnst ", stats.constructions);
-  printf("  %'15lu Dstr \n", stats.destructions);
-  printf("  %'15lu Swap ", stats.swaps);
-  printf("  %'15lu Copy ", stats.copies);
-  printf("  %'15lu Move \n", stats.moves);
+  printf("Took " CRED "%'15ldns" CNRM " for: " CGRN "%s" CNRM "\n", took.count(), mes);
+  printf("  " CBLU "%'15lu" CNRM " Comp ", stats.comparisons);
+  printf("  " CBLU "%'15lu" CNRM " Cnst ", stats.constructions);
+  printf("  " CBLU "%'15lu" CNRM " Dstr \n", stats.destructions);
+  printf("  " CBLU "%'15lu" CNRM " Swap ", stats.swaps);
+  printf("  " CBLU "%'15lu" CNRM " Copy ", stats.copies);
+  printf("  " CBLU "%'15lu" CNRM " Move \n", stats.moves);
   T::value_type::ResetStats();
   using std::is_sorted;
   if (!is_sorted(data.cbegin(), data.cend())) {
