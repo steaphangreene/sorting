@@ -34,6 +34,7 @@
 #include "datalist.hpp"
 
 #include "binsort.hpp"
+#include "cradixsort.hpp"
 #include "mergesort.hpp"
 #include "radixsort.hpp"
 #include "splitsort.hpp"
@@ -133,6 +134,8 @@ int main(int argc, char** argv) {
   Run(unsorted, DualSort, "DualSort");
   Run(unsorted, QuadSort, "QuadSort");
   Run(unsorted, OctoSort, "OctoSort");
+
+  Run(unsorted, CountingRadixSort, "CountingRadixSort");
 
   return 0;
 }
