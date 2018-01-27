@@ -33,6 +33,7 @@
 #include "data.hpp"
 #include "datalist.hpp"
 
+#include "binsort.hpp"
 #include "mergesort.hpp"
 #include "radixsort.hpp"
 #include "splitsort.hpp"
@@ -122,6 +123,9 @@ int main(int argc, char** argv) {
 
   Run(unsorted, MergeSort, "MergeSort");
   Run(sorted, MergeSort, "Re-run of MergeSort");
+
+  RunAs(unsorted, BinSort, "BinSort (forward_list)", std::forward_list<etype>);
+  RunAs(unsorted, BinSort, "BinSort (data_list)", data_list<etype>);
 
   RunAs(unsorted, RadixSort, "RadixSort (forward_list)", std::forward_list<etype>);
   RunAs(unsorted, RadixSort, "RadixSort (data_list)", data_list<etype>);
