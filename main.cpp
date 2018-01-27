@@ -34,6 +34,7 @@
 #include "datalist.hpp"
 
 #include "binsort.hpp"
+#include "cbinsort.hpp"
 #include "cradixsort.hpp"
 #include "mergesort.hpp"
 #include "radixsort.hpp"
@@ -136,6 +137,8 @@ int main(int argc, char** argv) {
   Run(unsorted, OctoSort, "OctoSort");
 
   Run(unsorted, CountingRadixSort, "CountingRadixSort");
+  Run(unsorted, StableCountingBinSort, "CountingBinSort (Stable)");
+  Run(unsorted, InPlaceCountingBinSort, "CountingBinSort (In-Place)");
 
   return 0;
 }
