@@ -137,8 +137,15 @@ int main(int argc, char** argv) {
   Run(unsorted, OctoSort, "OctoSort");
 
   Run(unsorted, CountingRadixSort, "CountingRadixSort");
+
   Run(unsorted, StableCountingBinSort, "CountingBinSort (Stable)");
   Run(unsorted, InPlaceCountingBinSort, "CountingBinSort (In-Place)");
+  Run(unsorted, DualStableCountingBinSort, "DualCountingBinSort (Stable)");
+  Run(unsorted, DualInPlaceCountingBinSort, "DualCountingBinSort (In-Place)");
+  Run(unsorted, QuadStableCountingBinSort, "QuadCountingBinSort (Stable)");
+  Run(unsorted, QuadInPlaceCountingBinSort, "QuadCountingBinSort (In-Place)");
+  Run(unsorted, OctoStableCountingBinSort, "OctoCountingBinSort (Stable)");
+  Run(unsorted, OctoInPlaceCountingBinSort, "OctoCountingBinSort (In-Place)");
 
   return 0;
 }
