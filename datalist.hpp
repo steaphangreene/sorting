@@ -121,19 +121,7 @@ class data_list {
   }
 
   void sort() {
-    bool sorted = empty();
-    while (!sorted) {
-      data_node<T>* ptr = head.next;
-      sorted = true;
-      while (ptr->next != nullptr) {
-        if (ptr->next->value < ptr->value) {
-          using std::swap;
-          swap(ptr->value, ptr->next->value);
-          sorted = false;
-        }
-        ptr = ptr->next;
-      }
-    }
+    quick_sort(&head, static_cast<data_node<T>*>(nullptr));
   }
   void splice_after(data_list<T>::iterator to, data_list<T>&, data_list<T>::iterator from) {
     auto mover = from.node->next;
@@ -146,4 +134,24 @@ class data_list {
   data_node<T> head = {nullptr, 0};
   data_node<T>* memory = nullptr;
   unsigned long size = 0;
+  data_node<T>* partition(data_node<T>* begin, data_node<T>* end) {
+    auto less = begin;
+    auto pivot = begin->next;
+    auto more = pivot;
+    while (more->next != end) {
+      if (more->next->value < pivot->value) {
+        splice_after(less, *this, more);
+      } else {
+        more = more->next;
+      }
+    }
+    return pivot;
+  }
+  void quick_sort(data_node<T>* begin, data_node<T>* end) {
+    if (begin != nullptr && begin->next != end) {
+      auto mid = partition(begin, end);
+      quick_sort(begin, mid);
+      quick_sort(mid, end);
+    }
+  }
 };
