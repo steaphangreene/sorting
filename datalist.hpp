@@ -121,7 +121,7 @@ class data_list {
   }
 
   void sort() {
-    quick_sort(&head, static_cast<data_node<T>*>(nullptr));
+    merge_sort();
   }
   void splice_after(data_list<T>::iterator to, data_list<T>&, data_list<T>::iterator from) {
     auto mover = from.node->next;
@@ -134,9 +134,45 @@ class data_list {
   data_node<T> head = {nullptr, 0};
   data_node<T>* memory = nullptr;
   unsigned long size = 0;
-  data_node<T>* partition(data_node<T>* begin, data_node<T>* end) {
-    auto less = begin;
-    auto pivot = begin->next;
+
+  // Forward-only seekless merge sort
+  data_node<T>* merge_sort(data_node<T>* beg, data_node<T>* mid, unsigned long max) {
+    if (max < 1 || beg == nullptr || mid == nullptr) {
+      return nullptr;
+    } else if (max < 2) {
+      return beg->next;
+    }
+    auto end = mid->next;
+    for (unsigned long span = 2; span < max; span *= 2) {
+      end = merge_sort(mid, end, span);
+    }
+    while (mid != nullptr && mid->next != nullptr && beg != mid && mid != end) {
+      if (mid->next->value < beg->next->value) {
+        auto mover = mid->next;
+        mid->next = mid->next->next;
+        mover->next = beg->next;
+        beg->next = mover;
+        if (end == mover)
+          end = mid;
+      }
+      beg = beg->next;
+    }
+    return end;
+  }
+  void merge_sort() {
+    head.value = 0;
+    unsigned long span = 2;
+    auto mid = head.next;
+    while (mid != nullptr) {
+      mid = merge_sort(&head, mid, span);
+      span *= 2;
+    }
+  }
+
+  // Forward-only seekless quicksort
+  data_node<T>* partition(data_node<T>* beg, data_node<T>* end) {
+    auto less = beg;
+    auto pivot = beg->next;
     auto more = pivot;
     while (more->next != end) {
       if (more->next->value < pivot->value) {
@@ -147,10 +183,10 @@ class data_list {
     }
     return pivot;
   }
-  void quick_sort(data_node<T>* begin, data_node<T>* end) {
-    if (begin != nullptr && begin->next != end) {
-      auto mid = partition(begin, end);
-      quick_sort(begin, mid);
+  void quick_sort(data_node<T>* beg, data_node<T>* end = nullptr) {
+    if (beg != nullptr && beg->next != end) {
+      auto mid = partition(beg, end);
+      quick_sort(beg, mid);
       quick_sort(mid, end);
     }
   }
