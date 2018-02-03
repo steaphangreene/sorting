@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -e
+
+cmd="$(ls sorting.* | shuf -n 1)"
+if [ "$1" = "-a" ]; then
+  shift
+  for cmd in sorting.*; do
+    echo "Running: $cmd $@"
+    ./"$cmd" "$@"
+  done
+else
+  echo "Running: $cmd $@"
+  ./"$cmd" "$@"
+fi
