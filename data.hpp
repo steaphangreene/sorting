@@ -21,6 +21,7 @@
 
 #pragma once
 
+#include <mutex>
 #include <type_traits>
 #include <utility>
 
@@ -86,6 +87,7 @@ class Data {
     // }
     void Flush() noexcept {
       if (this != &(Data<T>::global_stats)) {
+        std::lock_guard<std::mutex> lock(stats_lock);
         Data<T>::global_stats.comparisons += comparisons;
         Data<T>::global_stats.copies += copies;
         Data<T>::global_stats.moves += moves;
@@ -182,6 +184,7 @@ class Data {
   T data;
   static thread_local Stats stats;
   static Stats global_stats;
+  static std::mutex stats_lock;
 };
 
 template <typename T>
@@ -203,6 +206,10 @@ typename Data<T>::Stats Data<T>::global_stats = {
     0,
     0,
 };
+
+template <typename T>
+typename std::mutex Data<T>::stats_lock;
+
 
 template <typename T, typename V>
 void Report(const char* mes, T& data, V took) {
