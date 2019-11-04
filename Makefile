@@ -27,15 +27,17 @@ all:	sorting.uint64_t sorting.uint32_t sorting.uint16_t \
 	sorting.float sorting.double sorting.long\ double
 
 #Production Settings (dynamic)
-CXX=	g++ -std=c++14 -s -Wall -Werror -O3
+CXX=	clang++-8 -std=c++17 -Wall -Werror -O3
 
-#Use debugging settings
-debug:
-	+make CXX='g++ -std=c++14 -g -fsanitize=address -fsanitize=undefined -Wall -Werror'
+#Use sanitizers
+asan:
+	+make CXX='clang++-8 -std=c++17 -g -fsanitize=address -fsanitize=undefined -fsanitize=leak -Wall -Werror'
+tsan:
+	+make CXX='clang++-8 -std=c++17 -g -fsanitize=thread -Wall -Werror'
 
 #Use profiling settings
 profile:
-	+make CXX='g++ -std=c++14 -g -pg -fprofile-arcs -Wall -Werror'
+	+make CXX='g++ -std=c++17 -g -pg -fprofile-arcs -Wall -Werror'
 
 clean:
 	rm -f gmon.out deps.mk *.o *.da sorting.*
