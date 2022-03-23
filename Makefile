@@ -27,7 +27,7 @@ all:	sorting.uint64_t sorting.uint32_t sorting.uint16_t \
 	sorting.float sorting.double sorting.long\ double
 
 #Production Settings (dynamic)
-CXX=	clang++-13 -std=c++17 -Wall -Werror -O3
+CXX=	clang++-13 -std=c++20 -Wall -Werror -O3
 
 #Use sanitizers
 asan:
