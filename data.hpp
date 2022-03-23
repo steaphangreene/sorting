@@ -80,6 +80,7 @@ class Data {
     void operator=(Stats&& in) = delete;
     Stats(const Stats& in) = delete;
     Stats(Stats&& in) = delete;
+    Stats() = default;
     // Though this *is* correct, it would make everything slower.
     // So, you have to manually call GetStats() at the end of every thread.  :/
     // ~Stats() {
@@ -106,12 +107,12 @@ class Data {
       constructions = 0;
       destructions = 0;
     }
-    unsigned long comparisons;
-    unsigned long copies;
-    unsigned long moves;
-    unsigned long swaps;
-    unsigned long constructions;
-    unsigned long destructions;
+    unsigned long comparisons = 0;
+    unsigned long copies = 0;
+    unsigned long moves = 0;
+    unsigned long swaps = 0;
+    unsigned long constructions = 0;
+    unsigned long destructions = 0;
   };
   unsigned long GetBin(uint_fast8_t chunk) const noexcept {
     ++stats.comparisons;
@@ -188,24 +189,10 @@ class Data {
 };
 
 template <typename T>
-thread_local typename Data<T>::Stats Data<T>::stats = {
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-};
+thread_local typename Data<T>::Stats Data<T>::stats;
 
 template <typename T>
-typename Data<T>::Stats Data<T>::global_stats = {
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-};
+typename Data<T>::Stats Data<T>::global_stats;
 
 template <typename T>
 typename std::mutex Data<T>::stats_lock;
