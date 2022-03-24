@@ -197,7 +197,6 @@ typename Data<T>::Stats Data<T>::global_stats;
 template <typename T>
 typename std::mutex Data<T>::stats_lock;
 
-
 template <typename T, typename V>
 void Report(const char* mes, T& data, V took) {
   auto& stats = T::value_type::GetStats();
