@@ -107,7 +107,7 @@ int main(int argc, char** argv) {
   }
 
   auto sorted = unsorted;
-  sort(sorted.begin(), sorted.end());
+  std::sort(sorted.begin(), sorted.end());
 
   auto finish = std::chrono::high_resolution_clock::now();
   Report("Completing setup", sorted, finish - start);
